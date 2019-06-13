@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_13_182232) do
+ActiveRecord::Schema.define(version: 2019_06_13_183040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2019_06_13_182232) do
     t.string "position_x"
     t.integer "position_y"
     t.boolean "revealed?", default: false
-    t.boolean "player1_ship?"
-    t.boolean "player2_ship?"
+    t.boolean "player1_ship?", default: false
+    t.boolean "player2_ship?", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
