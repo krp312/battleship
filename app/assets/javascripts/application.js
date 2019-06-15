@@ -15,6 +15,21 @@
 //= require turbolinks
 //= require_tree .
 
+function readCookie(name) {
+  var key = name + "=";
+  var cookies = document.cookie.split(';');
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1, cookie.length);
+        }
+    if (cookie.indexOf(key) === 0) {
+            return cookie.substring(key.length, cookie.length);
+        }
+  }
+  return null;
+}
+
 function updateSquare(squareId) {
   const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
@@ -23,7 +38,9 @@ function updateSquare(squareId) {
     url: `square/${squareId}`,
     headers: { 'X-CSRF-Token': csrf },
     success: function(data, status) {
-      if (status === 'success' && data['player2_ship?'] === true) {
+      if (status === 'success' && readCookie('player') === 'one' && data['player2_ship?'] === true) {
+        $(`#${data.id}`).addClass('hit');
+      } else if (status === 'success' && readCookie('player') === 'two' && data['player1_ship?'] === true) {
         $(`#${data.id}`).addClass('hit');
       } else {
         $(`#${data.id}`).addClass('miss');
