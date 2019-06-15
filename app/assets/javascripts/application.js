@@ -14,3 +14,22 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+function updateSquare(squareId) {
+  const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+
+  $.ajax({
+    method: "PUT",
+    url: `square/${squareId}`,
+    headers: { 'X-CSRF-Token': csrf },
+    success: function(data, status) {
+      if (status == 'success') {
+        $(`#${data.id}`).addClass('hit');
+      }
+
+      if (status == 'success') {
+        $(`#${data.id}`).addClass('miss');
+      }
+    }
+  })
+}

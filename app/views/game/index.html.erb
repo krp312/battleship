@@ -1,0 +1,20 @@
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+<div class='container'>
+  <% @squares.each do |square| %>
+    <a onclick='updateSquare(<%= square.id %>)'>
+      <div 
+        class='square' 
+        id='<%= square.id %>' 
+        data-revealed='<%= square.revealed? %>'
+        data-player1_ship='<%= square.player1_ship? %>'
+        data-player2_ship='<%= square.player2_ship? %>'
+      >
+        <%= square.id %>
+      </div>
+    </a>
+  <% end %>
+</div>
