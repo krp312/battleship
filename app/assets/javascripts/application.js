@@ -30,7 +30,7 @@ function readCookie(name) {
   return null;
 }
 
-function updateSquare(squareId) {
+function playSquare(squareId) {
   const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
   $.ajax({
@@ -38,6 +38,10 @@ function updateSquare(squareId) {
     url: `square/${squareId}`,
     headers: { 'X-CSRF-Token': csrf },
     success: function(data, status) {
+      if (data === 'Wait') {
+        alert('Please wait for other player to complete their turn');
+      }
+
       if (status === 'success' && readCookie('player') === 'one' && data['player2_ship?'] === true) {
         $(`#${data.id}`).addClass('hit');
       } else if (status === 'success' && readCookie('player') === 'two' && data['player1_ship?'] === true) {
