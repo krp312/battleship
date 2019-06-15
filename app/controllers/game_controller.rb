@@ -15,4 +15,8 @@ class GameController < ApplicationController
       @game.update(status: 'in_progress')
     end
   end
+
+  def show
+    render json: Game.last
+  end
 end

@@ -30,6 +30,25 @@ function readCookie(name) {
   return null;
 }
 
+function check_victory_condition() {
+  const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+
+  $.ajax({
+    method: "GET",
+    url: 'game/1',
+    headers: { 'X-CSRF-Token': csrf },
+    success: function(data, status) {
+      if (data.status === 'player2_wins') {
+        alert('Player 2 wins!');
+      }
+
+      if (data.status === 'player1_wins') {
+        alert('Player 1 wins!');
+      }
+    }
+  })
+}
+
 function playSquare(squareId) {
   const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
@@ -38,6 +57,8 @@ function playSquare(squareId) {
     url: `square/${squareId}`,
     headers: { 'X-CSRF-Token': csrf },
     success: function(data, status) {
+      check_victory_condition()
+
       if (data === 'Wait') {
         alert('Please wait for other player to complete their turn');
       }
