@@ -23,11 +23,9 @@ function updateSquare(squareId) {
     url: `square/${squareId}`,
     headers: { 'X-CSRF-Token': csrf },
     success: function(data, status) {
-      if (status == 'success') {
+      if (status === 'success' && data['player2_ship?'] === true) {
         $(`#${data.id}`).addClass('hit');
-      }
-
-      if (status == 'success') {
+      } else {
         $(`#${data.id}`).addClass('miss');
       }
     }
