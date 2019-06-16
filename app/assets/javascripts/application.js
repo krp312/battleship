@@ -27,15 +27,8 @@ function checkGameStatus() {
     url: 'game/1',
     headers: { 'X-CSRF-Token': csrf },
     success: function(data) {
-      $('.game-status').text(data.status);
-
-      if (data.status === 'player2_wins') {
-        alert('Player 2 wins!');
-      }
-
-      if (data.status === 'player1_wins') {
-        alert('Player 1 wins!');
-      }
+      $('.game-status').text(data.descriptive_status);
+      setTimeout(checkGameStatus, 1000);
     }
   })
 }
@@ -51,12 +44,12 @@ function playSquare(squareId) {
       checkGameStatus()
 
       if (data === 'Wait') {
-        alert('Please wait for other player to complete their turn');
+        alert('Please wait for other player to play a tile.')
       }
 
-      if (status === 'success' && readCookie('player') === 'one' && data['player2_ship?'] === true) {
+      if (status === 'success' && readCookie('player') === "1" && data['player2_ship'] === true) {
         $(`#${data.id}`).addClass('hit');
-      } else if (status === 'success' && readCookie('player') === 'two' && data['player1_ship?'] === true) {
+      } else if (status === 'success' && readCookie('player') === "2" && data['player1_ship'] === true) {
         $(`#${data.id}`).addClass('hit');
       } else {
         $(`#${data.id}`).addClass('miss');
@@ -66,5 +59,5 @@ function playSquare(squareId) {
 }
 
 window.onload = (event) => {
-  checkGameStatus();
+  setTimeout(checkGameStatus, 1000);
 };

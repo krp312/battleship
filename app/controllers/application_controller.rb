@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
   def current_user
-    # TO DO
+    cookies[:player].to_i
   end
 end
