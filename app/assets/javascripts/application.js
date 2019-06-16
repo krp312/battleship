@@ -28,6 +28,12 @@ function checkGameStatus() {
     headers: { 'X-CSRF-Token': csrf },
     success: function(data) {
       $('.game-status').text(data.descriptive_status);
+
+      if (data.descriptive_status === 'Player 1 Wins' || data.descriptive_status === 'Player 2 Wins') {
+        $('a').addClass('disable-click');
+        $('.container').addClass('blur-grid');
+      }
+
       setTimeout(checkGameStatus, 1000);
     }
   })

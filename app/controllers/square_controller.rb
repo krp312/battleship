@@ -14,7 +14,6 @@ class SquareController < ApplicationController
       @game.update!(active_player: 1, status: 'waiting_for_player1')
     end
 
-    @game.check_game_status
     square.update!(revealed: true)
     render json: square, status: :ok
   end

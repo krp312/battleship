@@ -24,9 +24,20 @@ class GameController < ApplicationController
   end
 
   def descriptive_status
+    check_win_condition
+    return 'Player 1 Wins' if @game.status == 'player1_wins'
+    return 'Player 2 Wins' if @game.status == 'player2_wins'
     return 'Ready for Move' if @game.active_player?(current_user)
     return 'Please Wait' unless @game.active_player?(current_user)
-    return 'Player 1 Wins' if @game.player1_win
-    return 'Player 2 Wins' if @game.player2_win
+  end
+
+  def check_win_condition
+    if Square.where(revealed: true, player1_ship: true).count == 2
+      Game.current.update(status: 'player2_wins')
+    end
+
+    if Square.where(revealed: true, player2_ship: true).count == 2
+      Game.current.update(status: 'player1_wins')
+    end
   end
 end
