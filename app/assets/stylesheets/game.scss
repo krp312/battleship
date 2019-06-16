@@ -5,6 +5,7 @@
 .square {
   height: 30px;
   width: 30px;
+  margin: 1px;
   border-style: solid;
   background: blue;
 }
@@ -12,7 +13,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  width: 360px;
+  width: 380px;
   flex-wrap: wrap;
 }
 
@@ -22,4 +23,12 @@
 
 .miss {
   background: gray;
+}
+
+.disable-click {
+  pointer-events: none;
+}
+
+.blur-grid {
+  filter: blur(2px);
 }
