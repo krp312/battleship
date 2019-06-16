@@ -1,19 +1,8 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
 
 function readCookie(name) {
   var key = name + "=";
@@ -30,14 +19,16 @@ function readCookie(name) {
   return null;
 }
 
-function check_victory_condition() {
+function checkGameStatus() {
   const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
   $.ajax({
     method: "GET",
     url: 'game/1',
     headers: { 'X-CSRF-Token': csrf },
-    success: function(data, status) {
+    success: function(data) {
+      $('.game-status').text(data.status);
+
       if (data.status === 'player2_wins') {
         alert('Player 2 wins!');
       }
@@ -57,7 +48,7 @@ function playSquare(squareId) {
     url: `square/${squareId}`,
     headers: { 'X-CSRF-Token': csrf },
     success: function(data, status) {
-      check_victory_condition()
+      checkGameStatus()
 
       if (data === 'Wait') {
         alert('Please wait for other player to complete their turn');
@@ -73,3 +64,7 @@ function playSquare(squareId) {
     }
   })
 }
+
+window.onload = (event) => {
+  checkGameStatus();
+};

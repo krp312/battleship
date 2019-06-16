@@ -10,26 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_15_180930) do
+ActiveRecord::Schema.define(version: 2019_06_14_224605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
+    t.integer "active_player", default: 1, null: false
+    t.string "status", default: "waiting_for_player1", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status", default: "waiting_for_player1"
-    t.integer "active_player", default: 1
   end
 
   create_table "squares", force: :cascade do |t|
-    t.integer "position_y"
-    t.boolean "revealed?", default: false
-    t.boolean "player1_ship?", default: false
-    t.boolean "player2_ship?", default: false
+    t.integer "position_x", null: false
+    t.integer "position_y", null: false
+    t.boolean "revealed", default: false, null: false
+    t.boolean "player1_ship", default: false, null: false
+    t.boolean "player2_ship", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "position_x"
   end
 
 end

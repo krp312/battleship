@@ -1,10 +1,17 @@
 class GameController < ApplicationController
   def index
     @squares = Square.all.order(:id)
-    @game = Game.last
+    @game = Game.current
     assign_players
     render :index
   end
+
+
+  def show
+    render json: Game.last
+  end
+
+  protected # TO DO (vs. private)
 
   def assign_players
     if @game.status == 'waiting_for_player1'
@@ -14,9 +21,5 @@ class GameController < ApplicationController
       cookies[:player] = 'two'
       @game.update(status: 'in_progress')
     end
-  end
-
-  def show
-    render json: Game.last
   end
 end

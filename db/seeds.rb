@@ -20,7 +20,7 @@ g.save
 
 Game.last.update(status: 'waiting_for_player1', active_player: 1)
 
-Square.first.update(player1_ship?: true)
-Square.second.update(player1_ship?: true)
-Square.third.update(player2_ship?: true)
-Square.fourth.update(player2_ship?: true)
+Square.first.update(player1_ship: true)
+Square.second.update(player1_ship: true)
+Square.third.update(player2_ship: true)
+Square.fourth.update(player2_ship: true)
