@@ -24,7 +24,7 @@ class ShipPlacer
   def assign_ship(direction)
     (0..@ship_tile_max).each do |num|
       s = Square.find_by(position_x: @random_x + (direction[:x] * num), position_y: @random_y + (direction[:y] * num))
-      s.update!(@player_field => true)
+      s.update!(@player_field => true) # TO DO: update the updates!
     end
   end
 
@@ -34,6 +34,8 @@ class ShipPlacer
       return false if s.nil?
       return false if s[@player_field] == true
     end
+
+    true
   end
 
   def valid_directions
