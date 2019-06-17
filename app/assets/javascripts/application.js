@@ -3,7 +3,6 @@
 //= require turbolinks
 //= require_tree .
 
-
 function readCookie(name) {
   var key = name + "=";
   var cookies = document.cookie.split(';');

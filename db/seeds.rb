@@ -3,12 +3,11 @@ Game.destroy_all
 
 (1..10).each do |i|
   (1..10).each do |j|
-    Square.new(position_x: j, position_y: i).save
+    Square.create!(position_x: j, position_y: i)
   end
 end
 
-Game.new.save
-Game.last.update!(status: 'waiting_for_player1', active_player: 1)
+Game.create!(status: 'waiting_for_player1', active_player: 1)
 
 ships = [2, 3, 3, 4, 5]
 while Square.where(player1_ship: true).count != 17

@@ -3,14 +3,14 @@
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
   crossorigin="anonymous"></script>
 
-<p class='game-status'></p>
+<div class='status-container'>
+  <p class='game-status'></p>
+</div>
 
 <div class='container'>
   <% @squares.each do |square| %>
     <a onclick='playSquare(<%= square.id %>)'>
-      <div class='square' id='<%= square.id %>'>
-        <%= square.id %>
-      </div>
+      <div class='square' id='<%= square.id %>'></div>
     </a>
   <% end %>
 </div>
