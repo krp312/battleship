@@ -20,54 +20,17 @@ g.save
 
 Game.last.update(status: 'waiting_for_player1', active_player: 1)
 
-class ShipPlacer
-  EAST = { x: 1, y: 0 }.freeze
-  SOUTH = { x: 0, y: 1 }.freeze
-  WEST = { x: -1, y: 0 }.freeze
-  NORTH = { x: 0, y: -1 }.freeze
-
-  def initialize(ship_size)
-    @random_x = rand(1..10)
-    @random_y = rand(1..10)
-    @ship_size = ship_size
-    @ship_tile_max = @ship_size - 1
-  end
-
-  def place_ship
-    direction = valid_directions.sample
-    return false if direction.nil?
-
-    assign_ship(direction)
-    true
-  end
-
-  def assign_ship(direction)
-    (0..@ship_tile_max).each do |num|
-      s = Square.find_by(position_x: @random_x + (direction[:x] * num), position_y: @random_y + (direction[:y] * num))
-      s.update!(player1_ship: true)
-    end
-  end
-
-  def direction_clear?(direction)
-    (0..@ship_tile_max).each do |num|
-      s = Square.find_by(position_x: @random_x + (direction[:x] * num), position_y: @random_y + (direction[:y] * num))
-      return false if s.nil?
-      return false if s.player1_ship == true
-    end
-  end
-
-  def valid_directions
-    valid_directions = []
-    [NORTH, SOUTH, EAST, WEST].each do |direction|
-      valid_directions << direction if direction_clear?(direction)
-    end
-    valid_directions
-  end
+ships = [2, 3, 3, 4, 5]
+puts 'PLACING PLAYER 1 SHIPS'
+while Square.where(player1_ship: true).count != 17
+  cheese = ShipPlacer.new(ships.first, 1).place_ship
+  ships.shift if cheese
 end
 
 ships = [2, 3, 3, 4, 5]
-while Square.where(player1_ship: true).count != 17
-  cheese = ShipPlacer.new(ships.first).place_ship
+puts 'PLACING PLAYER 2 SHIPS'
+while Square.where(player2_ship: true).count != 17
+  cheese = ShipPlacer.new(ships.first, 2).place_ship
   ships.shift if cheese
 end
 
