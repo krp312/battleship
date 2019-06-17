@@ -1,21 +1,29 @@
 **Setup**
 
-1. Clone or download this repo.
-2. Navigate to the root directly and run `bundle install`.
-3. Run `bin/rails db:setup`.
-4. Visit `localhost:3000` with two different browsers (or the same browser, but with one window in "private" mode).
+1. Notable requirements:
+
+* Bundler 1.16.6
+* Postgres
+* Rails 5
+* Ruby 2.5.1
+
+2. Clone or download this repo.
+3. Navigate to the root directory and run `bundle install`.
+4. `bin/rails db:setup`
+5. `bin/rails server`
+6. Visit `localhost:3000` with two different browsers (or the same browser, but with one window in _private_ mode).
 
 **Tests**
 
-To run tests, run `rspec`. If tests fail, please try `bin/rails db:migrate:reset db:seed` followed by `rspec`.
+To run tests, run `rspec`. If tests fail, try `bin/rails db:setup` followed by `rspec`.
 
 **New Game**
 
-Please follow steps 3 and 4 from "Setup".
+Follow steps 4-6 from _Setup_.
 
 **Gameplay Notes**
-* Player One's browser will display _Ready to Move_.
-* Player Two's browser will display _Please Wait_.
+
+* When the game starts, Player One will receive the first move.
 * Blue square: An unrevealed tile that can be played.
 * Red square: A successful hit on a section of an opposing ship.
 * Gray square: A miss.
