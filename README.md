@@ -1,24 +1,22 @@
-# README
+**Setup**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Clone or download this repo.
+2. Navigate to the root directly and run `bundle install`.
+3. Run `bin/rails db:setup`.
+4. Visit `localhost:3000` with two different browsers (or the same browser, but with one window in "private" mode).
 
-Things you may want to cover:
+**Tests**
 
-* Ruby version
+To run tests, run `rspec`. If tests fail, please try `bin/rails db:migrate:reset db:seed` followed by `rspec`.
 
-* System dependencies
+**New Game**
 
-* Configuration
+Please follow steps 3 and 4 from "Setup".
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Gameplay Notes**
+* Player One's browser will display _Ready to Move_.
+* Player Two's browser will display _Please Wait_.
+* Blue square: An unrevealed tile that can be played.
+* Red square: A successful hit on a section of an opposing ship.
+* Gray square: A miss.
+* Seventeen hits results in a win ([Battleship ship sizes](https://en.wikipedia.org/wiki/Battleship_(game)#Description)).
