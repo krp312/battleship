@@ -1,4 +1,3 @@
-# TO DO: player-specific ships
 class ShipPlacer
   EAST = { x: 1, y: 0 }.freeze
   SOUTH = { x: 0, y: 1 }.freeze
@@ -24,7 +23,7 @@ class ShipPlacer
   def assign_ship(direction)
     (0..@ship_tile_max).each do |num|
       s = Square.find_by(position_x: @random_x + (direction[:x] * num), position_y: @random_y + (direction[:y] * num))
-      s.update!(@player_field => true) # TO DO: update the updates!
+      s.update!(@player_field => true)
     end
   end
 

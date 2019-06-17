@@ -11,15 +11,15 @@ class GameController < ApplicationController
     render json: @game.attributes.merge(descriptive_status: descriptive_status)
   end
 
-  protected # TO DO (vs. private)
+  protected
 
   def assign_players
     if @game.status == 'waiting_for_player1'
       cookies[:player] = 1
-      @game.update(status: 'waiting_for_player2')
+      @game.update!(status: 'waiting_for_player2')
     elsif @game.status == 'waiting_for_player2'
       cookies[:player] = 2
-      @game.update(status: 'in_progress')
+      @game.update!(status: 'in_progress')
     end
   end
 
@@ -32,12 +32,12 @@ class GameController < ApplicationController
   end
 
   def check_win_condition
-    if Square.where(revealed: true, player1_ship: true).count == 2
-      Game.current.update(status: 'player2_wins')
+    if Square.where(revealed: true, player1_ship: true).count == 17
+      Game.current.update!(status: 'player2_wins')
     end
 
-    if Square.where(revealed: true, player2_ship: true).count == 2
-      Game.current.update(status: 'player1_wins')
+    if Square.where(revealed: true, player2_ship: true).count == 17
+      Game.current.update!(status: 'player1_wins')
     end
   end
 end
