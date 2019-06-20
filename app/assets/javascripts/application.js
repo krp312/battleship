@@ -28,12 +28,14 @@ function checkGameStatus() {
     success: function(data) {
       $('.game-status').text(data.descriptive_status);
 
+      if (data.descriptive_status === 'Ready for Move') {
+        $('a').removeClass('disable-click');
+      }
+
       if (data.descriptive_status === 'Player 1 Wins' || data.descriptive_status === 'Player 2 Wins') {
         $('a').addClass('disable-click');
         $('.container').addClass('blur-grid');
       }
-
-      setTimeout(checkGameStatus, 1000);
     }
   })
 }
@@ -49,7 +51,7 @@ function playSquare(squareId) {
       checkGameStatus()
 
       if (data === 'Wait') {
-        alert('Please wait for other player to play a tile.')
+        $('a').addClass('disable-click');
       }
 
       if (status === 'success' && readCookie('player') === "1" && data['player2_ship'] === true) {
@@ -64,5 +66,5 @@ function playSquare(squareId) {
 }
 
 window.onload = (event) => {
-  setTimeout(checkGameStatus, 1000);
+  setInterval(checkGameStatus, 1000);
 };
